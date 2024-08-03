@@ -1,41 +1,56 @@
 <template>
-  <div class="container">
-    <div>
-        <h1><strong>Inicio de sesión</strong></h1>
-        <p>
-            Bienvenido al sistema de gestion de usuarios y contactos asignados. Por favor ingrese
-            su nombre de usuario y contraseña para acceder a la aplicación web.
-        </p>
+    <div v-if="unauthorizedUser">
+        <h1>Lo sentimos, no puede acceder debido a un error en sus datos, verifique de nuevo</h1>
     </div>
-    <div class="container-login">
-        <Form @submit="validateUser">
-          <div class="form">
-              <p>Usuario</p>
-              <el-input v-model="user" placeholder="Ingrese su usuario" id="usuario"></el-input>
-          </div>
-          <div class="form">
-              <p>Email</p>
-              <el-input v-model="email" type="email" placeholder="Ingrese su email" show-password />
-          </div>
-          <div class="form">
-            <button type="submit">Acceder</button>
-              <!-- <el-button type="primary" size="default"><router-link to="/usuarios">Acceder</router-link></el-button>             -->
-          </div>
-        </Form>
+    <div class="container">
+        <div>
+            <h1><strong>Inicio de sesión</strong></h1>
+            <p>
+                Bienvenido al sistema de gestion de usuarios y contactos asignados. Por favor ingrese
+                su nombre de usuario y contraseña para acceder a la aplicación web.
+            </p>
+        </div>
+        <div class="container-login">
+            <Form @submit="validateUser">
+            <div class="form">
+                <p>Usuario</p>
+                <el-input v-model="user" placeholder="Ingrese su usuario" id="usuario"></el-input>
+            </div>
+            <div class="form">
+                <p>Email</p>
+                <el-input v-model="email" type="email" placeholder="Ingrese su email" show-password />
+            </div>
+            <div class="form">
+                <button type="submit">Acceder</button>
+                <!-- <el-button type="primary" size="default"><router-link to="/usuarios">Acceder</router-link></el-button>             -->
+            </div>
+            </Form>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
-    import { authenticateUser } from '@/services/authenticateUser';
+    import router from '@/router';
+import { authenticateUser } from '@/services/authenticateUser';
+    import { storageToken } from "@/services/storageToken";
     import { Form } from 'vee-validate';
     import { ref } from 'vue'
 
-    const user = ref('')
-    const email = ref('')
+    const user = ref('');
+    const email = ref('');
+    const unauthorizedUser = ref();
 
     const validateUser = () => {
-      authenticateUser(user, email);
+        authenticateUser(user, email).then(resp => {
+            if (resp['data'] != null) {
+                storageToken(resp['data']);
+                router.push("/usuarios");
+            }
+        }).catch(error => {
+            if (error['response']['status'] == 404) {
+                alert("Lo sentimos, no puede acceder debido a un error en sus datos, verifique de nuevo")
+            }
+        });
     }
 
 </script>
@@ -75,37 +90,4 @@
     .form > p {
         margin-bottom: 5px;
     }
-
-    /* .row {
-        position: absolute;
-        top: 50%;
-        right: 50%;
-        transform: translate(50%, -50%);
-        border: 1px solid blue;
-        border-radius: 15px;
-        height: 80%;
-    }
-
-    .container-text {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        border-right: 1px solid blue;
-    }
-
-    .container-login {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .form {
-        height: 100px;
-    }
-
-    .form p {
-        margin-bottom: 10px;
-    } */
-    
 </style>
