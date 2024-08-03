@@ -11,8 +11,8 @@
             <el-table-column fixed="right" label="Operaciones" min-width="20">
             <template #default>
                 <el-button type="primary" size="default">Detalles</el-button>
-                <el-button type="primary" size="default">Editar</el-button>
-                <el-button type="danger" size="default">Eliminar</el-button>
+                <el-button type="primary" size="default"><router-link :to="{path: `/editar/${users[0]['id']}`}">Editar</router-link></el-button>
+                <el-button type="danger" size="default" @click="remove(users[0]['id'])"><router-link to="/usuarios">Eliminar</router-link></el-button>
             </template>
             </el-table-column>
         </el-table>
@@ -23,12 +23,24 @@
 
 <script setup>
     import { getUsers } from '@/services/getUsers';
+import { removeUserById } from '@/services/removeUserById';
     import { ref } from 'vue';
     
     const users = ref();
     getUsers().then(resp => {
         users.value = resp;
     });
+
+    const remove = (id) => {
+        console.log(id);
+        removeUserById(id);
+    }
+
+    // removeUser((id) => {
+    //     removeUserById(id);
+    // })
+
+
 </script>
 
 <style scoped>
