@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/LoginView.vue'
 import UsersView from '@/views/UsersView.vue'
 import UserFormView from '@/views/UserFormView.vue'
+import EditUserFormView from '@/views/EditUserFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
         path: '/crear',
         name: 'Creando nuevo usuario',
         component: UserFormView
+      },
+      {
+        path: '/editar/:id',
+        name: 'Editando usuario',
+        component: EditUserFormView
       },
     ]
 })
