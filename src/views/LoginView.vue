@@ -8,52 +8,36 @@
         </p>
     </div>
     <div class="container-login">
-        <div class="form">
-            <p>Usuario</p>
-            <el-input v-model="user" placeholder="Ingrese su usuario" id="usuario"></el-input>
-        </div>
-        <div class="form">
-            <p>Password</p>
-            <el-input v-model="password" type="password" placeholder="Ingrese su password" show-password />
-        </div>
-        <div class="form">
-            <el-button type="primary" size="default"><router-link to="/usuarios">Acceder</router-link></el-button>            
-        </div>
+        <Form @submit="validateUser">
+          <div class="form">
+              <p>Usuario</p>
+              <el-input v-model="user" placeholder="Ingrese su usuario" id="usuario"></el-input>
+          </div>
+          <div class="form">
+              <p>Email</p>
+              <el-input v-model="email" type="email" placeholder="Ingrese su email" show-password />
+          </div>
+          <div class="form">
+            <button type="submit">Acceder</button>
+              <!-- <el-button type="primary" size="default"><router-link to="/usuarios">Acceder</router-link></el-button>             -->
+          </div>
+        </Form>
     </div>
-    <!-- <el-row :gutter="20" class="row">
-      <el-col :span="12" :offset="0">
-        <div class="container-text">
-          <div>
-            <h1>Inicio de sesión</h1>
-            <p>
-              Bienvenido al sistema de gestion de usuarios y contactos asignados. Por favor ingrese
-              su nombre de usuario y contraseña para acceder a la aplicación web.
-            </p>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="12" :offset="0">
-        <div class="container-login">
-          <div class="form">
-            <p>Usuario</p>
-            <el-input v-model="user" placeholder="Usuario" id="usuario"></el-input>
-          </div>
-          <div class="form">
-            <p>Password</p>
-            <el-input v-model="password" type="password" placeholder="password" show-password />
-          </div>
-          <el-button type="primary" size="default"
-            ><router-link to="/usuarios">Acceder</router-link></el-button>
-        </div>
-      </el-col>
-    </el-row> -->
   </div>
 </template>
 
 <script setup>
+    import { authenticateUser } from '@/services/authenticateUser';
+    import { Form } from 'vee-validate';
     import { ref } from 'vue'
+
     const user = ref('')
-    const password = ref('')
+    const email = ref('')
+
+    const validateUser = () => {
+      authenticateUser(user, email);
+    }
+
 </script>
 
 <style scoped>
