@@ -9,21 +9,22 @@
             <el-table-column prop="contacts[0]['references']" label="Referencias" width="250" />
             <el-table-column prop="createDate" label="Fecha de registro" width="150" />
             <el-table-column fixed="right" label="Operaciones" min-width="20">
-            <template #default>
+            <template v-slot="userInfo">                
                 <el-button type="primary" size="default">Detalles</el-button>
-                <el-button type="primary" size="default"><router-link :to="{path: `/editar/${users[0]['id']}`}">Editar</router-link></el-button>
-                <el-button type="danger" size="default" @click="remove(users[0]['id'])"><router-link to="/usuarios">Eliminar</router-link></el-button>
+                <el-button type="primary" size="default" @click="editUser(userInfo.row)">Editar</el-button>
+                <el-button type="danger" size="default" @click="removeUser(userInfo.row)">Eliminar</el-button>
             </template>
             </el-table-column>
         </el-table>
-        <el-button type="primary" size="default"><router-link to="/crear">Crear nuevo usuario</router-link></el-button>
+        <el-button type="primary" size="default" @click="createUser()">Crear nuevo usuario</el-button>
         
     </div>
 </template>
 
 <script setup>
+    import router from '@/router';
     import { getUsers } from '@/services/getUsers';
-import { removeUserById } from '@/services/removeUserById';
+    import { removeUserById } from '@/services/removeUserById';
     import { ref } from 'vue';
     
     const users = ref();
@@ -31,15 +32,17 @@ import { removeUserById } from '@/services/removeUserById';
         users.value = resp;
     });
 
-    const remove = (id) => {
-        console.log(id);
-        removeUserById(id);
+    const createUser = () => {
+        router.push('/crear');
     }
 
-    // removeUser((id) => {
-    //     removeUserById(id);
-    // })
+    const editUser = (user) => {
+        router.push(`/editar/${user.id}`)
+    }
 
+    const removeUser = (user) => {
+        removeUserById(user.id);
+    }
 
 </script>
 

@@ -11,19 +11,19 @@
             </p>
         </div>
         <div class="container-login">
-            <Form @submit="validateUser">
-            <div class="form">
-                <p>Usuario</p>
-                <el-input v-model="user" placeholder="Ingrese su usuario" id="usuario"></el-input>
-            </div>
-            <div class="form">
-                <p>Email</p>
-                <el-input v-model="email" type="email" placeholder="Ingrese su email" show-password />
-            </div>
-            <div class="form">
-                <button type="submit">Acceder</button>
-                <!-- <el-button type="primary" size="default"><router-link to="/usuarios">Acceder</router-link></el-button>             -->
-            </div>
+            <Form>
+                <div class="form">
+                    <p>Usuario</p>
+                    <el-input v-model="user" placeholder="Ingrese su usuario" id="usuario"></el-input>
+                </div>
+                <div class="form">
+                    <p>Email</p>
+                    <el-input v-model="email" type="email" placeholder="Ingrese su email" show-password />
+                </div>
+                <div class="form">
+                    <!-- <button type="submit">Acceder</button> -->
+                    <el-button type="primary" size="default" @click="validateUser">Acceder</el-button>
+                </div>
             </Form>
         </div>
     </div>

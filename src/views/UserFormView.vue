@@ -2,7 +2,7 @@
     <div class="container">
         <div class="register-form">
             <el-card class="card">
-                <Form @submit="saveUser">
+                <Form>
                     <div class="form">
                         <p>Ingrese su nombre de usuario</p>
                         <el-input v-model="information[0]" placeholder="Nombre" />
@@ -20,7 +20,9 @@
                         <el-input v-model="information[3]" placeholder="Referencias" />
                     </div>
                     <div class="form">
-                        <button type="submit">Registrar usuario</button>
+                        <!-- <button type="submit">Registrar usuario</button> -->
+                         <el-button type="primary" size="default" @click="saveUser">Registrar Usuario</el-button>
+                         
                         <!-- <el-button type="primary" size="default"><router-link to="/usuarios">Registrar usuario</router-link></el-button> -->
                     </div>
                 </Form>
@@ -30,13 +32,15 @@
 </template>
 
 <script setup>
-    import { sendUser } from '@/services/sendUser';
+    import router from '@/router';
+import { sendUser } from '@/services/sendUser';
     import { Form } from 'vee-validate';
     import { ref } from 'vue';
     const information = ref([]);
 
     const saveUser = () => {
-        sendUser(information);    
+        sendUser(information);
+        router.push('/usuarios');
     }
 
     
