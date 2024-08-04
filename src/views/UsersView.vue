@@ -9,7 +9,7 @@
             <el-table-column prop="contacts[0]['references']" label="Referencias" width="250" />
             <el-table-column prop="createDate" label="Fecha de registro" width="150" />
             <el-table-column fixed="right" label="Operaciones" min-width="20">
-            <template v-slot="userInfo">                
+            <template v-slot="userInfo">
                 <el-button type="primary" size="default">Detalles</el-button>
                 <el-button type="primary" size="default" @click="editUser(userInfo.row)">Editar</el-button>
                 <el-button type="danger" size="default" @click="removeUser(userInfo.row)">Eliminar</el-button>
