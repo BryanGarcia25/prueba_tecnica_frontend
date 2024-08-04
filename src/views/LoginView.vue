@@ -47,9 +47,18 @@ import { authenticateUser } from '@/services/authenticateUser';
                 router.push("/usuarios");
             }
         }).catch(error => {
-            if (error['response']['status'] == 404) {
-                alert("Lo sentimos, no puede acceder debido a un error en sus datos, verifique de nuevo")
+
+            switch (error['response']['status']) {
+                case 404:
+                    alert("Lo sentimos, no puede acceder debido a un error en sus datos, verifique de nuevo")
+                    break;
+                case 500:
+                    alert("Lo sentimos, el servidor esta fuera de servicio")
+                    break;
+                default:
+                    break;
             }
+
         });
     }
 
