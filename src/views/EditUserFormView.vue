@@ -2,25 +2,29 @@
     <div class="container">
         <div class="register-form">
             <el-card class="card">
-                <Form>
+                <Form :validation-schema="validate">
                     <div class="form">
-                        <p>Ingrese su nombre de usuario</p>
-                        <el-input v-model="information['name']" placeholder="Nombre" />
+                        <label for="name">Ingrese su nombre de usuario</label>
+                        <Field name="name" id="name" v-model="information[0]" placeholder="Nombre"/>                    
+                        <ErrorMessage name="name">El nombre es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
-                        <p>Ingrese su correo electrónico</p>
-                        <el-input v-model="information['email']" placeholder="Correo electrónico" />
+                        <label for="email">Ingrese su correo electrónico</label>
+                        <Field name="email" id="email" v-model="information[1]" placeholder="Correo Electronico"/>  
+                        <ErrorMessage name="email">El correo es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
-                        <p>Ingrese el teléfono</p>
-                        <el-input v-model="phoneUser" placeholder="Teléfono" />
+                        <label for="phone">Ingrese su número telefónico</label>
+                        <Field name="phone" id="phone" v-model="information[2]" placeholder="Teléfono"/>
+                        <ErrorMessage name="phone">El correo es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
-                        <p>Ingrese alguna referencia</p>
-                        <el-input v-model="referencesUser" placeholder="Referencias" />
+                        <label for="references">Ingrese alguna referencia</label>
+                        <Field name="references" id="references" v-model="information[3]" placeholder="Referencias"/>
+                        <ErrorMessage name="references">La referencia es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
-                        <el-button type="primary" size="default" @click="editUser">Editar Usuario</el-button>
+                         <el-button type="primary" size="default" @click="editUser">Editar Usuario</el-button>
                     </div>
                 </Form>
             </el-card>
@@ -31,7 +35,7 @@
 <script setup>
     import { getUserById } from '@/services/getUserById';
     import { useRoute } from 'vue-router';
-    import { Form } from 'vee-validate';
+    import { Form, Field, ErrorMessage } from 'vee-validate';
     import { ref } from 'vue';
     import { updateUser } from '@/services/updateUserById';
 
