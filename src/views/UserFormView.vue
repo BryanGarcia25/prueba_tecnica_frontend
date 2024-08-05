@@ -5,26 +5,26 @@
                 <Form :validation-schema="validate">
                     <div class="form">
                         <label for="name">Ingrese su nombre de usuario</label>
-                        <Field name="name" id="name" v-model="information[0]" placeholder="Nombre"/>                    
+                        <Field class="field" name="name" id="name" v-model="information[0]" placeholder="Nombre"/>
                         <ErrorMessage name="name">El nombre es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
                         <label for="email">Ingrese su correo electrónico</label>
-                        <Field name="email" id="email" v-model="information[1]" placeholder="Correo Electronico"/>  
-                        <ErrorMessage name="email">El correo es obligatorio</ErrorMessage>
+                        <Field class="field" name="email" id="email" v-model="information[1]" placeholder="Correo Electronico"/>
+                        <ErrorMessage style="color: red; font-weight: bold; font-size: 18px" name="email">El correo es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
                         <label for="phone">Ingrese su número telefónico</label>
-                        <Field name="phone" id="phone" v-model="information[2]" placeholder="Teléfono"/>
+                        <Field class="field" name="phone" id="phone" v-model="information[2]" placeholder="Teléfono"/>
                         <ErrorMessage name="phone">El correo es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
                         <label for="references">Ingrese alguna referencia</label>
-                        <Field name="references" id="references" v-model="information[3]" placeholder="Referencias"/>
+                        <Field class="field" name="references" id="references" v-model="information[3]" placeholder="Referencias"/>
                         <ErrorMessage name="references">La referencia es obligatorio</ErrorMessage>
                     </div>
                     <div class="form">
-                         <el-button type="primary" size="default" @click="saveUser">Registrar Usuario</el-button>
+                         <el-button class="button" type="primary" size="default" @click="saveUser">Registrar Usuario</el-button>
                     </div>
                 </Form>
             </el-card>
@@ -38,15 +38,29 @@
     import { Form, Field, ErrorMessage } from 'vee-validate';
     import { ref } from 'vue';
     import { validate } from "@/modules/validateForm";
+    import { ElMessage, ElMessageBox } from 'element-plus';
 
     const information = ref([]);
 
     const saveUser = () => {
-        sendUser(information);
-        router.push('/usuarios');
+        if (information.value.length == 4) {
+            sendUser(information);
+            ElMessage({
+                message: 'El usuario ha sido registrado correctamente',
+                type: 'success'
+            })
+            router.push('/usuarios');            
+        } else {
+            ElMessageBox.alert(
+            "Faltan campos por llenar",
+            "Atención",
+            {
+                confirmButtonText: 'Ok',
+                type: 'warning'
+            }
+        )
+        }        
     }
-
-    
 </script>
 
 <style scoped>
@@ -76,6 +90,21 @@
 
     .form:last-child {
         align-items: center;
+    }
+
+    .form > label {
+        font-size: 24px;
+    }
+
+    .form > .field {
+        padding: 10px;
+        margin: 5px 0px;
+        font-size: 20px;
+    }
+
+    .form > .button {
+        font-size: 24px;
+        padding: 20px;
     }
 
 
