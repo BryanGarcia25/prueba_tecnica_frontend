@@ -10,7 +10,7 @@
             <el-table-column prop="createDate" label="Fecha de registro" width="150" />
             <el-table-column fixed="right" label="Operaciones" min-width="20">
             <template v-slot="userInfo">
-                <el-button type="primary" size="default">Detalles</el-button>
+                <el-button type="primary" size="default" @click="userDetails(userInfo.row)">Detalles</el-button>
                 <el-button type="primary" size="default" @click="editUser(userInfo.row)">Editar</el-button>
                 <el-button type="danger" size="default" @click="removeUser(userInfo.row)">Eliminar</el-button>
             </template>
@@ -34,6 +34,10 @@
 
     const createUser = () => {
         router.push('/crear');
+    }
+
+    const userDetails = (user) => {
+        router.push(`/detalle/${user.id}`);
     }
 
     const editUser = (user) => {
