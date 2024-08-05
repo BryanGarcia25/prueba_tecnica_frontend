@@ -2,6 +2,7 @@
     <div>
         <div class="container">
             <div class="details">
+                <!-- Card para mostrar toda la informacion del usuario y su contacto asignado -->
                 <el-card>
                     <div class="username">
                         <div class="avatar">
@@ -61,8 +62,8 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Botón para regresar a la pantalla principal -->
                         <el-button type="primary" size="default" @click="goBack">Regresar</el-button>
-                        
                     </div>
                 </el-card>
             </div>
@@ -79,16 +80,20 @@ import { useRoute } from 'vue-router';
     const userInformation = ref([]);
     const phone = ref('');
     const references = ref('');
+    // Usando la función useRoute para obtener nuestro ID que enviamos por la URL
     const route = useRoute();
 
+    // Método para obtener la información del usuario con su respectivo id
     getUserById(route.params.id).then(resp => {
+        // La respuesta obtenida se envia a la lista
         userInformation.value = resp;
+        // Para en caso de los contactos se almacenan en sus respectivas variables de manera individual para mostrar la información
         phone.value = userInformation.value['contacts'][0]['phone'];
         references.value = userInformation.value['contacts'][0]['references']
-        console.log(userInformation.value['contacts'][0]['phone']);
         
     });
 
+    // Método para regresar a la lista de los usuarios registrados
     const goBack = () => {
         router.push('/usuarios');
     }

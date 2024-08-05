@@ -1,7 +1,7 @@
 import axios from "axios";
 
+// Api para registrar un nuevo usuario y contacto enviando la siguiente estructura JSON para su registro en la base de datos
 export const sendUser = (user) => {
-    // console.log(user.value[0]);
     axios.post('/api/users/create', { 
         id: 0,
         name: user.value[0],

@@ -2,6 +2,7 @@
     <div class="container">
         <div class="register-form">
             <el-card class="card">
+                <!-- Formulario para actualizar todos los atributos del usuario registrado -->
                 <Form :validation-schema="validate">
                     <div class="form">
                         <label for="name">Ingrese su nombre de usuario</label>
@@ -47,20 +48,26 @@
     const referencesUser = ref('');
     const route = useRoute();
     
+    // Metodo para obtener el usuario con su respectivo id
     getUserById(route.params.id).then(resp => {
         information.value = resp;
         phoneUser.value = information.value['contacts'][0]['phone'];
         referencesUser.value = information.value['contacts'][0]['references'];
     });
 
+    // Método para actualizar el usuario
     const editUser = () => {
+        // Enviando el valor de las variables reactivas a la lista
         information.value['contacts'][0]['phone'] = phoneUser.value;
         information.value['contacts'][0]['references'] = referencesUser.value;
+        // Método para actualizar la información del usuario
         updateUser(information);
+        // Muestra un mensaje de que fue exitosa la actualización
         ElMessage({
             message: 'El usuario ha sido actualizado correctamente',
             type: 'success'
         });
+        // Retorna a la pantalla principal
         router.push('/usuarios');
     }
 

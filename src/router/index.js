@@ -8,6 +8,7 @@ import UserDetailsView from '@/views/UserDetailsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  // Registrando todas las rutas que utilizaremos para navegar en ellas
   routes: [
       {
         path: '/',

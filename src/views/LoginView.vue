@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!-- Card para crear un formulario donde tome el nombre y correo del usuario para su autenticación -->
         <el-card class="card">
             <div class="information-card">
                 <h1><strong>Inicio de sesión</strong></h1>
@@ -15,12 +16,14 @@
                         <label class="email" for="email">Ingrese su correo electrónico</label>
                         <el-input class="email-input" name="email" type="email" :rows="2" v-model="email" placeholder="Correo electrónico"/>
                     </div>
+                    <!-- Botón para acceder a la pantalla principal -->
                     <el-button class="button" type="primary" size="default" @click="validateUser">Acceder</el-button>
                 </div>
             </div>
         </el-card>
     </div>
 
+    <!-- Dialog para mostrar si el usuario presenta un error en sus datos ingresados o si el servidor esta fuera de servicio -->
     <el-dialog v-model="dialogVisible" title="Atención" width="500" align-center>
         <span>{{ messageDialog }}</span>
         <template #footer>
@@ -42,14 +45,16 @@
     const dialogVisible = ref(false);
     const messageDialog = ref('');
 
+    // Método para validar al usuario con su nombre y correo
     const validateUser = () => {
         authenticateUser(user, email).then(resp => {
+            // Si la respuesta generá un token, entonces procede a almacenar el token en el almacenamiento local del navegador y envia a la pantalla principal
             if (resp['data'] != null) {
                 storageToken(resp['data']);
                 router.push("/usuarios");
             }
         }).catch(error => {
-
+            // En caso de que exista un error la variable reactiva messageDialog almacenará el mensaje dependiendo del estatus del error si fue un 404 o un 500
             switch (error['response']['status']) {
                 case 404:
                     messageDialog.value = "Lo sentimos, no puede acceder debido a un error en sus datos, verifique de nuevo";
@@ -61,6 +66,7 @@
                     break;
             }
 
+            // Activa el dialog para ser mostrado
             dialogVisible.value = true;
 
         });

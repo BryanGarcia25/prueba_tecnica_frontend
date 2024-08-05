@@ -1,5 +1,6 @@
 import axios from "axios"
 
+// API para actualizar un usuario y contacto en especifico mandando su siguiente estructura JSON para toda la información
 export const updateUser = (user) => {
     axios.post('/api/users/update', { 
         id: user.value['id'],

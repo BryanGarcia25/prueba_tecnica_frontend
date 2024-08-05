@@ -2,6 +2,7 @@
     <div class="container">
         <div class="register-form">
             <el-card class="card">
+                <!-- Formulario para registrar todos los atributos del nuevo usuario -->
                 <Form :validation-schema="validate">
                     <div class="form">
                         <label for="name">Ingrese su nombre de usuario</label>
@@ -40,17 +41,24 @@
     import { validate } from "@/modules/validateForm";
     import { ElMessage, ElMessageBox } from 'element-plus';
 
+    // Creando lista reactiva para almacenar la información del usuario
     const information = ref([]);
 
+    // Método para guardar el usuario en la base de datos
     const saveUser = () => {
+        // Para validar que todos los campos fueron llenados correctamente la lista debe tener un tamaño igual a 4
         if (information.value.length === 4) {
+            // Enviamos la información del usuario
             sendUser(information);
+            // Muestra un mensaje de exitoso al momento de reigstrar el usuario
             ElMessage({
                 message: 'El usuario ha sido registrado correctamente',
                 type: 'success'
             })
+            // Retorna a la pantalla de lista de usuarios
             router.push('/usuarios');            
         } else {
+            // En caso de que la lista no sea igual a 4 nos muestra una advertencia de que faltan campos por llenar
             ElMessageBox.alert(
             "Faltan campos por llenar",
             "Atención",
