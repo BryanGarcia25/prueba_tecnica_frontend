@@ -20,6 +20,15 @@
             </div>
         </el-card>
     </div>
+
+    <el-dialog v-model="dialogVisible" title="Atención" width="500" align-center>
+        <span>{{ messageDialog }}</span>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button type="primary" @click="dialogVisible = false">Ok</el-button>
+            </div>
+        </template>
+    </el-dialog>
 </template>
 
 <script setup>
@@ -30,6 +39,8 @@
 
     const user = ref('');
     const email = ref('');
+    const dialogVisible = ref(false);
+    const messageDialog = ref('');
 
     const validateUser = () => {
         authenticateUser(user, email).then(resp => {
@@ -41,14 +52,16 @@
 
             switch (error['response']['status']) {
                 case 404:
-                    alert("Lo sentimos, no puede acceder debido a un error en sus datos, verifique de nuevo")
+                    messageDialog.value = "Lo sentimos, no puede acceder debido a un error en sus datos, verifique de nuevo";
                     break;
                 case 500:
-                    alert("Lo sentimos, el servidor esta fuera de servicio")
+                    messageDialog.value = "Lo sentimos, el servidor esta fuera de servicio";
                     break;
                 default:
                     break;
             }
+
+            dialogVisible.value = true;
 
         });
     }
