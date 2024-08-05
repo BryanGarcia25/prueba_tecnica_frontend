@@ -111,5 +111,47 @@
         padding: 20px;
     }
 
+    @media screen and (max-width: 767px) {
+        .register-form {
+            display: block;
+            width: 100%;
+            padding: 0px 15px;
+        }
+
+        .form > label {
+            font-size: 16px;
+        }
+
+        .form > .field {
+            font-size: 14px;
+        }
+
+        .form > .button {
+            font-size: 16px;
+            padding: 15px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .register-form {
+            display: block;
+            width: 100%;
+            padding: 0px 15px;
+        }
+
+        .form > label {
+            font-size: 18px;
+        }
+
+        .form > .field {
+            font-size: 16px;
+        }
+
+        .form > .button {
+            font-size: 20px;
+            padding: 20px;
+        }
+    }
+
 
 </style>

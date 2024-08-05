@@ -5,7 +5,7 @@
                 <el-card>
                     <div class="username">
                         <div class="avatar">
-                            <img src="../assets/images/user.png" alt="user" height="50px">
+                            <img src="../assets/images/user.png" alt="user">
                         </div>
                         <div class="name">
                             <h1><strong> {{ userInformation['name'] }} </strong></h1>
@@ -17,7 +17,7 @@
                         <div class="body">
                             <div class="data">
                                 <div class="icon">
-                                    <img src="../assets/images/user.png" alt="user" height="50px">
+                                    <img src="../assets/images/user.png" alt="user">
                                 </div>
                                 <div class="info-user">
                                     <h3>Nombre</h3>
@@ -26,7 +26,7 @@
                             </div>
                             <div class="data">
                                 <div class="icon">
-                                    <img src="../assets/images/email.png" alt="user" height="50px">
+                                    <img src="../assets/images/email.png" alt="user" >
                                 </div>
                                 <div class="info-user">
                                     <h3>Correo</h3>
@@ -35,7 +35,7 @@
                             </div>
                             <div class="data">
                                 <div class="icon">
-                                    <img src="../assets/images/phone.png" alt="user" height="50px">
+                                    <img src="../assets/images/phone.png" alt="user" >
                                 </div>
                                 <div class="info-user">
                                     <h3>Teléfono</h3>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="data">
                                 <div class="icon">
-                                    <img src="../assets/images/references.png" alt="user" height="50px">
+                                    <img src="../assets/images/references.png" alt="user" >
                                 </div>
                                 <div class="info-user">
                                     <h3>Referencias</h3>
@@ -53,7 +53,7 @@
                             </div>
                             <div class="data">
                                 <div class="icon">
-                                    <img src="../assets/images/date.png" alt="user" height="50px">
+                                    <img src="../assets/images/date.png" alt="user" >
                                 </div>
                                 <div class="info-user">
                                     <h3>Fecha de creación</h3>
@@ -108,7 +108,12 @@ import { useRoute } from 'vue-router';
     .username {
         display: flex;
         justify-content: space-evenly;
+        align-items: center;
         margin-bottom: 10px;
+    }
+
+    .username > .avatar > img {
+        height: 50px;
     }
 
     .body-card {
@@ -133,8 +138,65 @@ import { useRoute } from 'vue-router';
         margin-right: 20px;
     }
 
+    .data > .icon > img {
+        height: 50px;
+    }
+
     .info-user > h3 {
         font-weight: bold;
+    }
+
+    @media screen and (max-width: 767px) {
+        .container {
+            display: block;
+            width: 100%;
+            padding: 0px 15px;
+        }
+
+        .username {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .username > .name { 
+            font-size: 12px;
+        }
+
+        .username > .avatar > img {
+            height: 25px;
+        }
+
+        .body {
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .body-card > h1 {
+            font-size: 18px;
+        }
+
+        .data {
+            padding: 10px;
+        }
+
+        .data > .icon > img {
+            height: 30px;
+        }
+
+        .info-user > h3 {
+            font-size: 16px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .container {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
+            width: 75%;
+        }
     }
     
 </style>

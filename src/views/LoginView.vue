@@ -78,8 +78,6 @@
 
     .container > .card {
         height: 70vh;
-        /* background: black;
-        color: white; */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -109,32 +107,50 @@
         flex-direction: column;
     }
 
+    .login-card-children > .form-login-card > label {
+        font-size: 12px;
+    }
+
     .login-card-children > .form-login-card > .user-input,
     .login-card-children > .form-login-card > .email-input {
         margin: 5px 0px 10px 0px;
     }
 
-    /* .container > div:first-child {
-        text-align: center;
-        margin-bottom: 20px;
+    @media screen and (max-width: 767px) {
+        .container {
+            width: 100%;
+            display: block;
+            padding: 0px 10px;
+        }
+
+        .information-card > h1 {
+            font-size: 32px;
+        }
+
+        .information-card > p {
+            font-size: 14px;
+        }
+
+        .login-card-children {
+            width: 90%;            
+        }
+
+        .login-card-children > .form-login-card > .user-input,
+        .login-card-children > .form-login-card > .email-input {
+            font-size: 14px;
+        }
     }
 
-    .container-login {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin: 0 auto;
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .container {
+            width: 80%;
+            display: block;
+            padding: 0px 10px;
+        }
+
+        .login-card-children {
+            width: 80%
+        }
     }
 
-    .form {
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-        margin: 0 auto;
-        margin-bottom: 15px;
-    }
-
-    .form > p {
-        margin-bottom: 5px;
-    } */
 </style>
